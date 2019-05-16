@@ -2,21 +2,26 @@
 #All data provided by the API and by this code is available under the Creative Commons Attribution-ShareAlike 4.0 International License
 #The next code altered the original OpenTDB output for being used in python
 #This code is free for Use for any purpose.
-#The next lines of code are made only by Pikapi, Mail:Pikapi@homeplex.tk, Discord: pikapi...#5510,
+#The next lines of code were made only by Pikapi, Mail:Pikapi@homeplex.tk, Discord: pikapi...#5510,
 from six.moves.urllib.request import urlopen# cota  simple:  '    toma todas las que quieras :D
 import random
 import re
 import ast
+
 restart="y"
+
 while restart=="y":
     combo=0
     correct=0
     incorrect=0
     maxcombo=0
     loop=0
+
     while loop<=0:
-        loop= int(input("how much questions do you want"))
+        loop = int(input("\nHow many questions do you want? "))
+
     repopt=["y","n"]
+
     for i in range(1,loop+1,1):
         import html
         link ="https://opentdb.com/api.php?amount=1"
@@ -25,7 +30,7 @@ while restart=="y":
         content = html.unescape(str(raw))
 
 
-        def category(response):#search function
+        def category(response):#search function for question category
          res = re.search(('"category":"(.+?)","type"'),str(response))#function
          if res:
             found = res.group(1)
@@ -33,23 +38,26 @@ while restart=="y":
         category = category(content)
 
 
-        def typefunc(response):#search function
+        def typefunc(response):#search function for question type (a, b, c, d; true or false)
          res = re.search(('"type":"(.+?)","difficulty'),str(response))#function
          if res:
             found = res.group(1)
             return found
-        tipe= typefunc(content)
+        tipe = typefunc(content)
 
 
-        def difficultyfunc(response):#search function
+        def difficultyfunc(response):#search function for question difficulty
          res = re.search(('"difficulty":"(.+?)","question":'),str(response))#function
          if res:
             found = res.group(1)
             return found
-        difficulty= difficultyfunc(content)
-        print("correct awnsers:",correct,"     incorrect awnsers:",incorrect)
-        print("combo:",combo, "     Question number",i,"/",loop)
-        print("type:",tipe,"   category:",category,"   Difficulty:" ,difficulty)
+        difficulty = difficultyfunc(content)
+
+
+        print("\n================================================================================\n")
+        print("Correct Answers:",correct,"     Incorrect Answers:",incorrect)
+        print("Combo:", combo,"     Question",i,"/",loop)
+        print("Type:",tipe.title(),"    Category:",category.title(),"   Difficulty:" ,difficulty.title())
 
 
         def questionfunc(response):#search function
@@ -58,7 +66,7 @@ while restart=="y":
             found = res.group(1)
             return found
         question = questionfunc(content)
-        print(question)
+        print("\n" + question)
 
 
         def goodfunc(response):#search function
@@ -89,8 +97,8 @@ while restart=="y":
 
 
 
-        a =options[0]
-        b =options[1]
+        a = options[0]
+        b = options[1]
         if a==good:
          check = "a"
         elif b==good:
@@ -102,56 +110,57 @@ while restart=="y":
           check="c"
          elif d==good:
           check="d"
-        print("a)",a)
-        print("b)",b)
+        print("  a)",a)
+        print("  b)",b)
         if tipe==("multiple"):
-         print("c)",c)
-         print("d)",d)
+         print("  c)",c)
+         print("  d)",d)
         respond = "false"
         while respond == "false":
-         res = input("Awnser:")
+         res = input("\nYour Answer: ")
          res=res.lower()
          if tipe=="boolean":
           valids=["a","b"]
           if res in valids:
            if res==check:
-            print("Correct awnser!")
+            print("  CORRECT")
             correct=correct+1
             combo=combo+1
            else:
-            print ("wrong awnser")
+            print ("  INCORRECT The correct answer was", check.upper())
             combo = 0
             incorrect = incorrect+1
            respond="true"
           else:
-           res=print("incorrect awnser, please put the awnser in abc format:")
+           res=print("Invalid input, please type a valid answer (a, b):")
          elif tipe==("multiple"):
           valids=["a","b","c","d"]
           if res in valids:
            if res==check:
-            print("Correct awnser!")
+            print("  CORRECT")
             correct=correct+1
             combo=combo+1
            else:
-            print ("wrong awnser")
+            print ("  INCORRECT The correct answer was", check.upper())
             combo = 0
             incorrect = incorrect+1
            respond="true"
           else:
-           res=print("incorrect awnser, please put the awnser in abc format:")
+           res=print("Invalid input, please type a valid answer (a, b, c, d):")
         if maxcombo<combo:
            maxcombo = combo
 
-    print("FINAL RESULTS---")
-    print("correct awnsers:",correct,"     incorrect awnsers:",incorrect)
-    print("combo:",combo, "     Question number",i,"/",loop)
-    print("max combo:",maxcombo)
+    print("\n================================================================================\n")
+    print("FINAL RESULTS")
+    print("Total Correct Answers:",correct,"     Total Incorrect Answers:",incorrect)
+    print("Current Streak:",combo, "     Question ",i,"/",loop)
+    print("Longest Streak:",maxcombo)
     reserror=1
     while reserror==1:
-        restart=input("play again? (y/n)")
+        restart=input("\nPlay again? (y/n) ")
         if restart in repopt:
             reserror=0
             if restart ==repopt[0]:
-             print("you decided to stay, now suffer")
+             print("You decided to stay, now suffer.")
         else:
-         print("invalid awnser, please repeat uwu")
+         print("Invalid input, please try again uwu")
