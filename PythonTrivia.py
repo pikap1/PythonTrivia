@@ -10,7 +10,7 @@ import ast
 
 ## FUNCTIONS HERE
 
-def category(response):#search function
+def Category(response):#search function
     res = re.search(('"category":"(.+?)","type"'),str(response))#function
     if res:
         found = res.group(1)
@@ -65,10 +65,10 @@ while restart=="y":
         response = urlopen(link)
         raw = response.read()
         content = html.unescape(str(raw))
-
-        category = category(content)
-        tipe= typefunc(content)
-        difficulty= difficultyfunc(content)
+        
+        category = Category(content)
+        tipe = typefunc(content)
+        difficulty = difficultyfunc(content)
         
         print("correct answers:",correct,"     Incorrect answers:",incorrect)
         print("combo:",combo, "     Question number",i,"/",loop)
@@ -77,7 +77,7 @@ while restart=="y":
         question = questionfunc(content)
         print(question)
         good = goodfunc(content)
-        bad1= badfunc1(content)
+        bad1 = badfunc1(content)
 
 
         options =ast.literal_eval(bad1)
