@@ -70,9 +70,9 @@ while restart=="y":
         tipe= typefunc(content)
         difficulty= difficultyfunc(content)
         
-        print("correct answers:",correct,"     incorrect answers:",incorrect)
+        print("correct answers:",correct,"     Incorrect answers:",incorrect)
         print("combo:",combo, "     Question number",i,"/",loop)
-        print("type:",tipe,"   category:",category,"   Difficulty:" ,difficulty)
+        print("Type:",tipe,"   Category:",category,"   Difficulty:" ,difficulty)
 
         question = questionfunc(content)
         print(question)
@@ -105,7 +105,7 @@ while restart=="y":
          print("d)",d)
         respond = "false"
         while respond == "false":
-         res = input("answer:")
+         res = input("Answer:")
          res=res.lower()
          if tipe=="boolean":
           valids=["a","b"]
